@@ -11,17 +11,20 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory
 WORKDIR /app
 
-# Copy only the backend folder into the container
+# Copy only backend contents
 COPY backend/ .
 
 # Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Expose the port used by uvicorn
+# Tell Render which port to scan
+ENV PORT=10000
+
+# Expose that port
 EXPOSE 10000
 
-# Run the FastAPI server
+# Run FastAPI server
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10000"]
 
 
