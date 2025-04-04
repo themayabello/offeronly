@@ -5,6 +5,11 @@ from utils import parse_script_from_pdf, extract_characters
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Offer Only API"}
+
+
 # Allow frontend to talk to backend
 app.add_middleware(
     CORSMiddleware,
@@ -13,6 +18,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 SCRIPT_CACHE = {}
 

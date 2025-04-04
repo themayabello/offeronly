@@ -1,5 +1,27 @@
-.env
+# macOS system files
+.DS_Store
+._*
+
+# Python/Venv files
 __pycache__/
-venv/
-uploaded_script.pdf
+*.py[cod]
 *.pyc
+*$py.class
+venv/
+
+# Environment files
+.env
+.env.local
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build/output directories
+build/
+dist/
+*.egg-info/
+
+uploaded_script.pdf
