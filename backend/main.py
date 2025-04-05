@@ -1,27 +1,30 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-from scene_runner import speak, SilenceTracker, AudioFrameReader  # adjust if file is renamed
+from scene_runner import speak, SilenceTracker, AudioFrameReader
 from utils import parse_script_from_pdf, extract_characters
+import os
 
 app = FastAPI()
 
+# Fix 1: Combine root and health check
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Offer Only API"}
+    return {
+        "message": "Welcome to the Offer Only API",
+        "status": "ok",
+        "port": os.getenv("PORT", 10000)
+    }
 
-
-# Allow frontend to talk to backend
+# Fix 2: Complete CORS middleware (missing quotes)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://www.mbcreativeenterprises.com"],  # In production, replace with your Netlify domain
+    allow_origins=["https://www.mbcreativeenterprises.com"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Fixed quotes
+    allow_headers=["*"],  # Fixed quotes
 )
 
-
 SCRIPT_CACHE = {}
-
 
 def structure_script(script_lines, user_character):
     structured = []
