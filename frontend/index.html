@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offer Only</title>
+  <title>Offer Only Cursor Test</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -98,10 +98,12 @@
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/upload', {
+      const response = await fetch('http://localhost:10000/upload', {
         method: 'POST',
         body: formData
       });
+
+      console.log("Upload response:", response);
 
       const characters = await response.json();
       const select = document.getElementById('characterSelect');
@@ -131,7 +133,7 @@
     formData.append('character', char);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/start_scene', {
+      const response = await fetch('http://localhost:10000/start_scene', {
         method: 'POST',
         body: formData
       });

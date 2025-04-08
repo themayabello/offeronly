@@ -8,6 +8,7 @@ import tempfile
 import requests
 import os
 from dotenv import load_dotenv
+from utils import parse_script_from_pdf, extract_characters, structure_script
 
 
 # -------- CONFIG --------
@@ -16,39 +17,6 @@ api_key = os.getenv("ELEVENLABS_API_KEY")
 ELEVENLABS_VOICE_ID = "cjVigY5qzO86Huf0OWal"
 
 # -------- PDF + Script Parsing --------
-def parse_script_from_pdf(path):
-    doc = fitz.open(path)
-    all_lines = []
-    for page in doc:
-        text = page.get_text()
-        lines = text.split('\n')
-        for line in lines:
-            line = line.strip()
-            if line:
-                all_lines.append(line)
-    return all_lines
-
-def extract_characters(script_lines):
-    potential_chars = []
-    print("\n🧾 Lines pulled from PDF:")
-    for line in script_lines:
-        print(f"- {line}")
-        if line.isupper() and 1 <= len(line.split()) <= 4:
-            if not re.match(r'^(INT\.|EXT\.|FADE|CUT TO|DISSOLVE)', line):
-                potential_chars.append(line)
-    most_common = Counter(potential_chars).most_common()
-    return [char for char, count in most_common]
-
-def structure_script(script_lines, user_character):
-    structured = []
-    current_char = None
-    for line in script_lines:
-        if line.isupper():
-            current_char = line
-        elif current_char:
-            structured.append({"character": current_char, "line": line})
-    return structured
-
 def get_user_character_and_script():
     path = input("📄 Enter path to your PDF script: ")
     lines = parse_script_from_pdf(path)
