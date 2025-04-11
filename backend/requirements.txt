@@ -6,3 +6,4 @@ webrtcvad
 pyaudio
 requests
 python-dotenv
+threading

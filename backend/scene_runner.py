@@ -14,7 +14,7 @@ from utils import parse_script_from_pdf, extract_characters, structure_script
 # -------- CONFIG --------
 load_dotenv()
 api_key = os.getenv("ELEVENLABS_API_KEY")
-ELEVENLABS_VOICE_ID = "cjVigY5qzO86Huf0OWal"
+ELEVENLABS_VOICE_ID = "x86DtpnPPuq2BpEiKPRy"
 
 # -------- PDF + Script Parsing --------
 def get_user_character_and_script():

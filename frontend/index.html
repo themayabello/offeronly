@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offer Only Cursor Test</title>
+  <title>Offer Only</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -78,6 +78,7 @@
     </select>
 
     <button id="startScene">Start Scene</button>
+    <button id="stopScene">Stop Scene</button>
 
     <div class="transcript" id="transcriptBox"></div>
 
@@ -145,6 +146,23 @@
       alert("Something went wrong starting the scene.");
     }
   });
+
+  document.getElementById('stopScene').addEventListener('click', async () => {
+    try {
+      const response = await fetch('http://localhost:10000/stop_scene', {
+        method: 'POST'
+      });
+
+      const result = await response.json();
+      console.log("Stop Scene button clicked!");
+      console.log("Stop scene response:", result);
+      document.getElementById('transcriptBox').innerText = result.message || "Scene stopped.";
+    } catch (error) {
+      console.error("Error stopping scene:", error);
+      alert("Something went wrong stopping the scene.");
+    }
+  });
+
 </script>
 
 </body>
